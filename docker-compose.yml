@@ -7,7 +7,8 @@ version: '2'
 services:
 
   server:
-    image: szurubooru/server:latest
+    #image: szurubooru/server:latest
+    build: server
     depends_on:
       - sql
     environment:
@@ -23,8 +24,10 @@ services:
       #LOG_SQL: 0 (1 for verbose SQL logs)
       THREADS:
     volumes:
-      - "${MOUNT_DATA}:/data"
+      - app:/data"
       - "./server/config.yaml:/opt/app/config.yaml"
+    networks:
+      - szoorunet
 
   client:
     #image: szurubooru/client:latest
@@ -35,9 +38,11 @@ services:
       BACKEND_HOST: server
       BASE_URL:
     volumes:
-      - "${MOUNT_DATA}:/data:ro"
+      - app:/data:ro"
     ports:
       - "${PORT}:80"
+    networks:
+      - szoorunet
 
   sql:
     image: postgres:11-alpine
@@ -46,4 +51,17 @@ services:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
     volumes:
-      - "${MOUNT_SQL}:/var/lib/postgresql/data"
+      - db:/var/lib/postgresql/data"
+    networks:
+      - szoorunet
+
+volumes:
+  app:
+    driver: local
+  db:
+    driver: local
+
+networks:
+  szoorunet:
+    external: true
+    name: ${NET_NAME}
