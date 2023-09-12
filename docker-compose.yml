@@ -36,7 +36,7 @@ services:
       - server
     environment:
       BACKEND_HOST: server
-      BASE_URL:
+      BASE_URL: ${BASE_URL}
     volumes:
       - "app:/data:ro"
     ports:
