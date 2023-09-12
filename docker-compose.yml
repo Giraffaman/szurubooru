@@ -16,13 +16,13 @@ services:
       ## or FQDNs/IP addresses if these services are running outside of Docker
       POSTGRES_HOST: sql
       ## Credentials for database:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       ## Commented Values are Default:
       #POSTGRES_DB: defaults to same as POSTGRES_USER
       #POSTGRES_PORT: 5432
       #LOG_SQL: 0 (1 for verbose SQL logs)
-      THREADS:
+      THREADS: 4
     volumes:
       - "app:/data"
       - "${CONF_PATH}:/opt/app/config.yaml"
