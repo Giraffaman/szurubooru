@@ -7,8 +7,8 @@ version: '2'
 services:
 
   server:
-    #image: szurubooru/server:latest
-    build: server
+    image: szurubooru/server:latest
+    #build: server
     depends_on:
       - sql
     environment:
