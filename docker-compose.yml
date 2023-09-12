@@ -48,8 +48,8 @@ services:
     image: postgres:11-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     volumes:
       - "db:/var/lib/postgresql/data"
     networks:
